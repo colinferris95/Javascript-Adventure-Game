@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>
+			My Adventure Game
+		</title>
+		<script type="text/javascript" src='game.js'>
+		
+		</script>
+	</head>
+	
+	<body onload="display();">
+		<h1> Adventure Game
+		</h2>
+		
+		<textarea id="display" style="width:200px; height:200px;">
+			
+			
+		</textarea>
+		
+		
+		<input type="button"
+               value = "North"
+               onclick="move(currentLocationsInt,0);">
+        <input type="button"
+               value = "South"
+               onclick="move(currentLocationsInt,1);">
+        <input type="button"
+               value = "East"
+               onclick="move(currentLocationsInt,2);">
+        <input type="button"
+               value = "West"
+               onclick="move(currentLocationsInt,3);">
+			   
+	    <br>
+	    </br>
+		
+		<div id="score">
+			
+		</div>
+			   
+			   
+	</body>
+
+</html>
