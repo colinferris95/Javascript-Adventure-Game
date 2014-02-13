@@ -3,44 +3,45 @@
 
 //var currentLocationsStr = locations[currentLocationsInt];
 
-var gameScore = 5;
+var gameScore = 0;
 
 var locationLog = [''];
 
 //var visit = new Boolean(1);
 //constructor
-function Location(id,name,desc,item)
+function Location(id,name,desc,item,visit)
 {
 	this.id = id;
 	this.name = name;
 	this.desc = desc;
 	this.item = item;
+	this.visit = visit;
 	
 }
 
 //objects
-var dungeon = new Location(0,"Dungeon Cell","You start in a cold dungeon cell","axe");
-var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end in sight.......","you get nothing");
+var dungeon = new Location(0,"Dungeon Cell","You start in a cold dungeon cell","axe",false);
+var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end in sight.......","you get nothing",false);
 var east_bridge = new Location(2,"East Bridge","You walk across a bridge","you get nothing");
-var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!","you get nothing");
-var West_Gate = new Location(4,"West Gate","You open a large gate","you get nothing");
-var Key = new Location(5,"Golden Key","You pick up a shiny gold key!!","Golden Key");
-var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it ","you get nothing");//needs gold key
-var Open_Field = new Location(7,"Open Field","You reach open air!","you get nothing");
+var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!","you get nothing",false);
+var West_Gate = new Location(4,"West Gate","You open a large gate","you get nothing",false);
+var Key = new Location(5,"Golden Key","You pick up a shiny gold key!!","Golden Key",false);
+var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it ","you get nothing",false);//needs gold key
+var Open_Field = new Location(7,"Open Field","You reach open air!","you get nothing",false);
 
 
 
 
 var locations = new Array();
 locations[-1] = "You cannot traverse the map this way";
-locations[0] = dungeon.name; //Dungeon cell
-locations[1] = maze.name // Maze to Nowhere
-locations[2] = east_bridge.name; //east bridge 
-locations[3] = Troll.name; //Troll
-locations[4] = West_Gate.name; //west gate 
-locations[5] = Key.name; //golden key
-locations[6] = Golden_Gate.name; //golden gate
-locations[7] = Open_Field.name; //open field
+locations[0] = dungeon; //Dungeon cell
+locations[1] = maze; // Maze to Nowhere
+locations[2] = east_bridge; //East Bridge 
+locations[3] = Troll; //Troll
+locations[4] = West_Gate; //West Gate 
+locations[5] = Key; //Golden Key
+locations[6] = Golden_Gate; //Golden Gate
+locations[7] = Open_Field; //Open Field
 
 var currentLocationsInt = 0;
 
@@ -61,7 +62,7 @@ var matrix = [
 
 
 function display(){
-	document.getElementById("display").value = locations[currentLocationsInt]; //+ " " + gameScore 
+	document.getElementById("display").value = locations[currentLocationsInt].name  + ' ' + gameScore ;
 	//document.getElementById("display").value = dungeon.;
 	
 }
@@ -74,6 +75,12 @@ function move(cl,dir){
 	
 	if (newLocation >= 0){
 	currentLocationsInt = newLocation;
+	
+	if (locations[currentLocationsInt].visit === false){
+		locations[currentLocationsInt].visit = true;
+		gameScore = gameScore + 5;
+		
+	}
 	/*
 		if (locationLog.indexOf(locations[currentLocationsInt]) === -1){
 			gameScore = gameScore + 5;
