@@ -1,13 +1,7 @@
-
+// to do: make more script pages for seperate functions
 // location matrix D:0 M:1 EB:2 T:3 WG:4 GK:5 GG:6 F:7
 
-//var currentLocationsStr = locations[currentLocationsInt];
 
-var gameScore = 0;
-
-var locationLog = [''];
-
-//var visit = new Boolean(1);
 //constructor
 function Location(id,name,desc,item,visit)
 {
@@ -20,18 +14,18 @@ function Location(id,name,desc,item,visit)
 }
 
 //objects
-var dungeon = new Location(0,"Dungeon Cell","You start in a cold dungeon cell","axe",false);
-var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end in sight.......","you get nothing",false);
-var east_bridge = new Location(2,"East Bridge","You walk across a bridge","you get nothing");
-var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!","you get nothing",false);
-var West_Gate = new Location(4,"West Gate","You open a large gate","you get nothing",false);
-var Key = new Location(5,"Golden Key","You pick up a shiny gold key!!","Golden Key",false);
-var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it ","you get nothing",false);//needs gold key
-var Open_Field = new Location(7,"Open Field","You reach open air!","you get nothing",false);
+var dungeon = new Location(0,"Dungeon Cell","You start in a cold dungeon cell, and see some sort of a weapon....\n\n"," Axe",false);
+var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end in sight.......\n\n","nothing",false);
+var east_bridge = new Location(2,"East Bridge","You walk across a bridge\n\n","you get nothing");
+var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!\n\n","nothing",false);
+var West_Gate = new Location(4,"West Gate","You open a large gate\n\n","nothing",false);
+var Key = new Location(5,"Golden Key Room","You see a shiny key on the ground\n\n"," Golden Key",false);
+var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it\n\n ","nothing",false);//needs gold key
+var Open_Field = new Location(7,"Open Field","You reach open air!\n\n","nothing",false);
 
 
 
-
+//locations
 var locations = new Array();
 locations[-1] = "You cannot traverse the map this way";
 locations[0] = dungeon; //Dungeon cell
@@ -43,9 +37,14 @@ locations[5] = Key; //Golden Key
 locations[6] = Golden_Gate; //Golden Gate
 locations[7] = Open_Field; //Open Field
 
+//Globals
 var currentLocationsInt = 0;
 
+var inventory = [''];
 
+var gameScore = 0 ;
+
+//Location Matrix
 var matrix = [
    //N  S  E  W
 	[6, 1, 2, 4],//Dungeon cell
@@ -60,40 +59,52 @@ var matrix = [
 	
 
 
-
+//updates display with game information
 function display(){
-	document.getElementById("display").value = locations[currentLocationsInt].name  + ' ' + gameScore ;
+	document.getElementById("display").value =  
+	locations[currentLocationsInt].desc +  '' + 
+	'Location: '  + locations[currentLocationsInt].name  + ' ' + 
+	'Score: ' + gameScore + ' ' + 'Inventory: '  + inventory  ;
 	//document.getElementById("display").value = dungeon.;
 	
 }
 
+//Moves the player
 function move(cl,dir){
 	
 	
 	//currentLocation = locations[matrix[cl][dir]];
 	var newLocation = matrix[cl][dir];
 	
-	if (newLocation >= 0){
-	currentLocationsInt = newLocation;
+		if (newLocation >= 0){
+			currentLocationsInt = newLocation;
+		}
 	
-	if (locations[currentLocationsInt].visit === false){
-		locations[currentLocationsInt].visit = true;
-		gameScore = gameScore + 5;
-		
+		if (locations[currentLocationsInt].visit === false){
+			locations[currentLocationsInt].visit = true;
+			gameScore = gameScore + 5;	
+			
+			display();
+		}
+		 else {
+			currentLocationsInt = currentLocationsInt;
+			document.getElementById("display").value = "You cannot traverse the map this way, you are still in " + 
+			locations[currentLocationsInt].name ;
+		}
 	}
-	/*
-		if (locationLog.indexOf(locations[currentLocationsInt]) === -1){
-			gameScore = gameScore + 5;
-		} else{
-			//do nothing
-		}*/
-	//locationLog.push(locations[currentLocationsInt]);
-	display();
-	} else {
-		currentLocationsInt = currentLocationsInt;
-		document.getElementById("display").value = "You cannot traverse the map this way";
+
+//allows player to take items.
+function action(){
+		if (locations[currentLocationsInt].item !== "nothing"){
+			inventory.push(locations[currentLocationsInt].item)
+			alert('You picked up an item!')//change this
+			display();
+		}
+		if (locations[currentLocationsInt] === Golden_Gate && inventory[1] === "Golden Key"){
+			alert('you have opened the gate! Advance north now brave warrior!')
+		} else if(locations[currentLocationsInt] === Golden_Gate && inventory[1] !== "Golden Key"){
+			alert('you do not have the key to open this door')
+			currentLocationsInt = 0;
+		}	
 	}
-	
-	
-	
-}
+

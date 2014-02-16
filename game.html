@@ -2,42 +2,59 @@
 <html>
 	<head>
 		<title>
-			My Adventure Game
+			Dungeon's Keep
 		</title>
 		<script type="text/javascript" src='game.js'>
 		
 		</script>
+		<link rel="stylesheet" type="text/css" href="game.css">
 	</head>
 	
 	<body onload="display();">
-		<h1> Adventure Game
+		<h2> Dungeon's Keep
 		</h2>
+			<div id="main">
+				
+					<textarea id="display" style="width:500px; height:300px;">	
+					</textarea>
 		
-		<textarea id="display" style="width:200px; height:200px;">
-			
-			
-		</textarea>
+				</div>
 		
+		<br>
+	    	</br>
 		
-		<input type="button"
-               value = "North"
-               onclick="move(currentLocationsInt,0);">
-        <input type="button"
-               value = "South"
-               onclick="move(currentLocationsInt,1);">
-        <input type="button"
-               value = "East"
-               onclick="move(currentLocationsInt,2);">
-        <input type="button"
-               value = "West"
-               onclick="move(currentLocationsInt,3);">
-			   
-	    <br>
+		<div id="buttons">
+			<input type="button"
+               	value = "North"
+               	onclick="move(currentLocationsInt,0);">
+				
+       		 <input type="button"
+               	value = "South"
+               	onclick="move(currentLocationsInt,1);">
+				
+        	 <input type="button"
+               	value = "East"
+               	onclick="move(currentLocationsInt,2);">
+				
+        	 <input type="button"
+               	value = "West"
+               	onclick="move(currentLocationsInt,3);">
+	   	<br>
+	   		</br>
+	    
+			  <input type="button"
+				value = "action"
+				onclick="action();">
+		<br>
 	    </br>
 		
-		<div id="score">
-			
+			  <input type="button"
+				 value = "Help"
+				 onclick="help();"> 
+				   
 		</div>
+		
+	
 			   
 			   
 	</body>
