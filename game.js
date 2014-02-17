@@ -1,4 +1,7 @@
 // to do: make more script pages for seperate functions
+// remove alert boxes
+// add troll scene
+// add text input
 // location matrix D:0 M:1 EB:2 T:3 WG:4 GK:5 GG:6 F:7
 
 
@@ -122,3 +125,10 @@ function action(){
 		}	
 	}
 
+
+function help(){
+	alert("Welcome to Dungeon's Keep, a text based adventure game written in javascript. Use the directional buttons to move around the game map, and the action button to pick up items and use them. Have fun!");
+	
+	
+	
+}
