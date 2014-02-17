@@ -19,7 +19,7 @@ var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end 
 var east_bridge = new Location(2,"East Bridge","You walk across a bridge\n\n","you get nothing");
 var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!\n\n","nothing",false);
 var West_Gate = new Location(4,"West Gate","You open a large gate\n\n","nothing",false);
-var Key = new Location(5,"Golden Key Room","You see a shiny key on the ground\n\n"," Golden Key",false);
+var Key = new Location(5,"Golden Key Room","You see a shiny key on the ground\n\n","Golden Key",false);
 var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it\n\n ","nothing",false);//needs gold key
 var Open_Field = new Location(7,"Open Field","You reach open air!\n\n","nothing",false);
 
@@ -40,9 +40,11 @@ locations[7] = Open_Field; //Open Field
 //Globals
 var currentLocationsInt = 0;
 
-var inventory = [''];
+var inventory = [];
 
 var gameScore = 0 ;
+
+var locked = true;
 
 //Location Matrix
 var matrix = [
@@ -73,24 +75,33 @@ function display(){
 function move(cl,dir){
 	
 	
-	//currentLocation = locations[matrix[cl][dir]];
+	
 	var newLocation = matrix[cl][dir];
 	
-		if (newLocation >= 0){
+		if (newLocation >= 0 && currentLocationsInt !== 6){
 			currentLocationsInt = newLocation;
+			display();
+		} else if(locations[currentLocationsInt] === Golden_Gate && dir === 0 && locked === true){
+			alert("You must unlock this door first");
+			currentLocationsInt = 0;
+			display();
+		} else if(locations[currentLocationsInt] === Golden_Gate && dir === 0 && locked === false){
+			currentLocationsInt = newLocation;
+			display();
 		}
-	
+		
+		else {
+			document.getElementById("display").value = "You cannot traverse the map this way, you are still in " + 
+			locations[currentLocationsInt].name ;
+		}
+		
 		if (locations[currentLocationsInt].visit === false){
 			locations[currentLocationsInt].visit = true;
 			gameScore = gameScore + 5;	
 			
 			display();
 		}
-		 else {
-			currentLocationsInt = currentLocationsInt;
-			document.getElementById("display").value = "You cannot traverse the map this way, you are still in " + 
-			locations[currentLocationsInt].name ;
-		}
+		
 	}
 
 //allows player to take items.
@@ -100,11 +111,14 @@ function action(){
 			alert('You picked up an item!')//change this
 			display();
 		}
-		if (locations[currentLocationsInt] === Golden_Gate && inventory[1] === "Golden Key"){
-			alert('you have opened the gate! Advance north now brave warrior!')
-		} else if(locations[currentLocationsInt] === Golden_Gate && inventory[1] !== "Golden Key"){
-			alert('you do not have the key to open this door')
+		if (locations[currentLocationsInt] === Golden_Gate && inventory.indexOf("Golden Key") === -1){
+			alert('you do not have the key to open this door');
 			currentLocationsInt = 0;
+			display();
+		} else if(locations[currentLocationsInt] === Golden_Gate) {
+			alert('move north brave warrior!')
+			locked = false;
+			
 		}	
 	}
 
