@@ -158,7 +158,7 @@ function action(){
 			currentLocationsInt = 0;
 			display();
 		} else if(locations[currentLocationsInt] === Golden_Gate) {
-			document.getElementById("alert").value = 'move north brave warrior!';
+			document.getElementById("alert").value = 'You have unlocked the Golden Gate, move north brave warrior!';
 			locked = false;
 			
 		}	
@@ -166,7 +166,7 @@ function action(){
 
 
 function help(){
-	alert("Welcome to Dungeon's Keep, a text based adventure game written in javascript. Use the directional buttons to move around the game map, and the action button to pick up items and use them. Have fun!");
+	document.getElementById("alert").value = "Welcome to Dungeon's Keep, a text based adventure game written in javascript. Use the directional buttons or text input to move around the game map, and the action button to pick up items and use them. Have fun!";
 	
 	
 	
