@@ -1,6 +1,4 @@
-// to do: make more script pages for seperate functions
-// remove alert boxes
-// add troll scene
+
 
 // location matrix D:0 M:1 EB:2 T:3 WG:4 GK:5 GG:6 F:7
 
@@ -95,7 +93,7 @@ function go(cl){
 		currentLocationsInt = newLocation;
 		display();
 	} else if(locations[currentLocationsInt] === Golden_Gate && loc === 0 && locked === true){
-		alert("You must unlock this door first");
+		document.getElementById("alert").value = "You must unlock this door first";
 		currentLocationsInt = 0;
 		display();
 	} else if(locations[currentLocationsInt] === Golden_Gate && loc === 0 && locked === false){
@@ -114,57 +112,53 @@ function go(cl){
 		
 		display();
 	}
+}
 
 //Moves the player
 function move(cl,dir){
-	
-	
 	
 	var newLocation = matrix[cl][dir];
 	
 		if (newLocation >= 0 && currentLocationsInt !== 6){
 			currentLocationsInt = newLocation;
+			document.getElementById("alert").value = " ";
 			display();
 		} else if(locations[currentLocationsInt] === Golden_Gate && dir === 0 && locked === true){
-			alert("You must unlock this door first");
+			document.getElementById("alert").value = "You must unlock this door first";
 			currentLocationsInt = 0;
 			display();
 		} else if(locations[currentLocationsInt] === Golden_Gate && dir === 0 && locked === false){
 			currentLocationsInt = newLocation;
 			display();
-		}
-		
-		else {
-			document.getElementById("display").value = "You cannot traverse the map this way, you are still in " + 
+		} else if (newLocation === -1) {
+			document.getElementById("alert").value = "You cannot traverse the map this way, you are still in " + 
 			locations[currentLocationsInt].name ;
+			display();
 		}
 		
 		if (locations[currentLocationsInt].visit === false){
 			locations[currentLocationsInt].visit = true;
 			gameScore = gameScore + 5;	
-			
 			display();
 		}
 		
 	}
 
 	
-	
-}
 
 //allows player to take items.
 function action(){
 		if (locations[currentLocationsInt].item !== "nothing"){
 			inventory.push(locations[currentLocationsInt].item);
-			alert('You picked up an item!');//change this
+			document.getElementById("alert").value = 'You picked up an item!';//change this
 			display();
 		}
 		if (locations[currentLocationsInt] === Golden_Gate && inventory.indexOf("Golden Key") === -1){
-			alert('you do not have the key to open this door');
+			document.getElementById("alert").value = 'you do not have the key to open this door';
 			currentLocationsInt = 0;
 			display();
 		} else if(locations[currentLocationsInt] === Golden_Gate) {
-			alert('move north brave warrior!');
+			document.getElementById("alert").value = 'move north brave warrior!';
 			locked = false;
 			
 		}	
