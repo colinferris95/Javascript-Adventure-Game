@@ -1,7 +1,7 @@
 // to do: make more script pages for seperate functions
 // remove alert boxes
 // add troll scene
-// add text input
+
 // location matrix D:0 M:1 EB:2 T:3 WG:4 GK:5 GG:6 F:7
 
 
@@ -74,6 +74,47 @@ function display(){
 	
 }
 
+function go(cl){
+	var textDir = document.getElementById("textInput").value;
+	
+	if (textDir === "n" || "N" || "north" || "North"){
+		var newLocation = matrix[cl][0];
+		var loc = 0;
+	} else if (textDir === "s" || "S" || "south" || "South"){
+		var newLocation = matrix[cl][1];
+		var loc = 1;
+	} else if (textDir === "e" || "E" || "east" || "East"){
+		var newLocation = matrix[cl][2];
+		var loc = 2;
+	} else if (textDir === "w" || "W" || "west" || "West"){
+		var newLocation = matrix[cl][3];
+		var loc = 3;
+	}
+	
+	if (newLocation >= 0 && currentLocationsInt !== 6){
+		currentLocationsInt = newLocation;
+		display();
+	} else if(locations[currentLocationsInt] === Golden_Gate && loc === 0 && locked === true){
+		alert("You must unlock this door first");
+		currentLocationsInt = 0;
+		display();
+	} else if(locations[currentLocationsInt] === Golden_Gate && loc === 0 && locked === false){
+		currentLocationsInt = newLocation;
+		display();
+	}
+	
+	else {
+		document.getElementById("display").value = "You cannot traverse the map this way, you are still in " + 
+		locations[currentLocationsInt].name ;
+	}
+	
+	if (locations[currentLocationsInt].visit === false){
+		locations[currentLocationsInt].visit = true;
+		gameScore = gameScore + 5;	
+		
+		display();
+	}
+
 //Moves the player
 function move(cl,dir){
 	
@@ -107,11 +148,15 @@ function move(cl,dir){
 		
 	}
 
+	
+	
+}
+
 //allows player to take items.
 function action(){
 		if (locations[currentLocationsInt].item !== "nothing"){
-			inventory.push(locations[currentLocationsInt].item)
-			alert('You picked up an item!')//change this
+			inventory.push(locations[currentLocationsInt].item);
+			alert('You picked up an item!');//change this
 			display();
 		}
 		if (locations[currentLocationsInt] === Golden_Gate && inventory.indexOf("Golden Key") === -1){
@@ -119,7 +164,7 @@ function action(){
 			currentLocationsInt = 0;
 			display();
 		} else if(locations[currentLocationsInt] === Golden_Gate) {
-			alert('move north brave warrior!')
+			alert('move north brave warrior!');
 			locked = false;
 			
 		}	

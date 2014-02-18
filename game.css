@@ -18,7 +18,6 @@ textarea
 	padding-top:100px;
 	font-size:13px;
     
-    
 }
 
 
@@ -32,4 +31,18 @@ textarea
 h2
 {
 	text-align:center;
+}
+
+#textInput
+{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#goButton
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
