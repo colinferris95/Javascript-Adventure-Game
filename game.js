@@ -10,8 +10,7 @@ function Location(id,name,desc,item,visit)
 	this.name = name;
 	this.desc = desc;
 	this.item = item;
-	this.visit = visit;
-	
+	this.visit = visit;	
 }
 
 //objects
@@ -148,7 +147,7 @@ function move(cl,dir){
 
 //allows player to take items.
 function action(){
-		if (locations[currentLocationsInt].item !== "nothing"){
+		if (locations[currentLocationsInt] === dungeon){
 			inventory.push(locations[currentLocationsInt].item);
 			document.getElementById("alert").value = 'You picked up an item!';//change this
 			display();
