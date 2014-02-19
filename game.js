@@ -2,7 +2,7 @@
 
 // location matrix D:0 M:1 EB:2 T:3 WG:4 GK:5 GG:6 F:7
 
-
+//add the map
 //constructor
 function Location(id,name,desc,item,visit)
 {
@@ -17,7 +17,7 @@ function Location(id,name,desc,item,visit)
 var dungeon = new Location(0,"Dungeon Cell","You start in a cold dungeon cell, and see some sort of a weapon....\n\n"," Axe",false);
 var maze = new Location(1,"Maze to Nowhere","You get lost in a maze with no end in sight.......\n\n","nothing",false);
 var east_bridge = new Location(2,"East Bridge","You walk across a bridge\n\n","you get nothing");
-var Troll = new Location(3,"Troll","You encounter a large troll. Hit troll with axe!\n\n","nothing",false);
+var Troll = new Location(3,"Troll","You encounter a large troll.\n\n","nothing",false);
 var West_Gate = new Location(4,"West Gate","You open a large gate\n\n","nothing",false);
 var Key = new Location(5,"Golden Key Room","You see a shiny key on the ground\n\n","Golden Key",false);
 var Golden_Gate = new Location(6,"Golden Gate","You see a large gold gate, maybe something can open it\n\n ","nothing",false);//needs gold key
